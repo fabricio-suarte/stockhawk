@@ -2,17 +2,12 @@ package com.udacity.stockhawk;
 
 import android.app.Application;
 
-import timber.log.Timber;
-
 public class StockHawkApp extends Application {
+
+    public static final String ACTION_DATA_UPDATED = "com.udacity.stockhawk.ACTION_DATA_UPDATED";
 
     @Override
     public void onCreate() {
         super.onCreate();
-
-        if (BuildConfig.DEBUG) {
-            Timber.uprootAll();
-            Timber.plant(new Timber.DebugTree());
-        }
     }
 }

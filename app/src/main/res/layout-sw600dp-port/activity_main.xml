@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.udacity.stockhawk.ui.MainActivity">
+
+    <include layout="@layout/toolbar" />
+
+    <fragment
+        android:id="@+id/fragment_main"
+        android:name="com.udacity.stockhawk.ui.MainFragment"
+        android:layout_width="match_parent"
+        android:layout_weight="1"
+        android:layout_height="0dp"
+        android:layout="@layout/fragment_main"
+        android:tag="@string/fragment_main_tag"
+        android:layout_margin="@dimen/activity_horizontal_margin"/>
+
+    <FrameLayout
+        android:id="@+id/second_pane_container"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/activity_horizontal_margin">
+
+    </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- For RTL layouts, gravity configuration of both items should be the inverse.
+        This is the reason for these configs-->
+    <style name="DetailItemLabel" parent="DetailItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin_4x</item>
+        <item name="android:layout_columnWeight">1</item>
+    </style>
+
+    <style name="DetailItem" parent="DetailItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin_4x</item>
+        <item name="android:layout_columnWeight">1</item>
+    </style>
+
+    <!-- This one, is for a different reason: the size of booth elements should be inverted -->
+    <style name="StockSymbolTextStyle">
+        <item name="android:textSize">25sp</item>
+        <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">end|center_vertical</item>
+    </style>
+
+    <style name="PriceWrapperLayout">
+        <item name="android:gravity">end</item>
+    </style>
+
+</resources>

@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimary">#2196f3</color> <!-- Material blue 500 -->
+    <color name="colorPrimaryDark">#1565c0</color> <!-- Material blue 800 -->
+    <color name="colorPrimaryLight">#bbdefb</color> <!-- Material blue 100 -->
+    <color name="colorAccent">#69f0ae</color> <!-- Material green A200 -->
+    <color name="android_white">@android:color/white</color>
 
-    <color name="material_blue_500">#2196F3</color>
     <color name="material_red_700">#D50000</color>
     <color name="material_green_700">#00C853</color>
 

@@ -1,3 +1,24 @@
 <resources>
     <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="activity_horizontal_margin_4x">64dp</dimen>
+    <dimen name="view_default_padding">16dp</dimen>
+
+    <dimen name="appbar_elevation">10dp</dimen>
+
+    <!-- Attention! This is regarding Detail items on detail fragment RecyclerView.
+         This is a try to keep data container layout items aligned to the main layout items! -->
+    <dimen name="item_detail_data_container_end_margin">12dp</dimen>
+
+    <!-- Widget dimensions -->
+    <dimen name="widget_default_height">180dp</dimen>
+    <dimen name="widget_default_width">250dp</dimen>
+
+    <!-- Graph dimensions -->
+    <dimen name="graph_description_text_size">4dp</dimen>
+    <dimen name="graph_legend_text_size">4dp</dimen>
+    <dimen name="graph_value_text_size">3dp</dimen>
+    <dimen name="graph_xAxis_text_size">3dp</dimen>
+    <dimen name="graph_yAxis_text_size">3dp</dimen>
 </resources>

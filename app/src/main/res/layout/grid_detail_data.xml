@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/gridViewDetailData"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:columnCount="2">
+
+    <!-- Open -->
+    <TextView android:id="@+id/textViewDetailDataOpenLabel"
+        style="@style/DetailItemLabel"
+        android:text="@string/detail_open_label" />
+
+    <TextView android:id="@+id/textViewItemDetailDataOpen"
+        style="@style/DetailItem"/>
+
+    <!-- Low -->
+    <TextView android:id="@+id/textViewDetailDataLowLabel"
+        style="@style/DetailItemLabel"
+        android:text="@string/detail_low_label" />
+
+    <TextView android:id="@+id/textViewItemDetailDataLow"
+        style="@style/DetailItem"/>
+
+    <!-- High -->
+    <TextView android:id="@+id/textViewDetailDataHighLabel"
+        style="@style/DetailItemLabel"
+        android:text="@string/detail_high_label" />
+
+    <TextView android:id="@+id/textViewItemDetailDataHigh"
+        style="@style/DetailItem"/>
+
+    <!-- Volume -->
+    <TextView android:id="@+id/textViewDetailDataVolumeLabel"
+        style="@style/DetailItemLabel"
+        android:text="@string/detail_volume_label" />
+
+    <TextView android:id="@+id/textViewItemDetailDataVolume"
+        style="@style/DetailItem"/>
+
+</GridLayout>

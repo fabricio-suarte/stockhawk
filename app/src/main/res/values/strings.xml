@@ -1,35 +1,86 @@
-<resources>
-    <string name="app_name">Stock Hawk</string>
+<resources xmlns:xliff="http://schemas.android.com/tools">
+    <string name="app_name" translatable="false">Stock Hawk</string>
+    <string name="app_widget_title" translatable="false">Stock Hawk widget</string>
 
     <string name="pref_stocks_initialized_key" translatable="false">initialized</string>
 
-    <string name="pref_stocks_key">stocks</string>
+    <string name="pref_stocks_key" translatable="false">stocks</string>
 
+    <string name="pref_display_mode_key" translatable="false">displayMode</string>
+    <string name="pref_detail_display_mode_key" translatable="false">detailDisplayMode</string>
+    <string name="pref_display_mode_default" translatable="false">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_detail_display_mode_default" translatable="false">@string/pref_detail_display_mode_graph_key</string>
 
-    <string name="pref_display_mode_key">displayMode</string>
-    <string name="pref_display_mode_default">@string/pref_display_mode_percentage_key</string>
+    <string name="pref_display_mode_absolute_key" translatable="false">absolute</string>
+    <string name="pref_display_mode_percentage_key" translatable="false">percentage</string>
 
-    <string name="pref_display_mode_absolute_key">absolute</string>
-    <string name="pref_display_mode_percentage_key">percentage</string>
+    <string name="pref_detail_display_mode_list_key" translatable="false">absolute</string>
+    <string name="pref_detail_display_mode_graph_key" translatable="false">graph</string>
 
-    <string name="default_stocks_yahoo">YHOO</string>
-    <string name="default_stocks_apple">AAPL</string>
-    <string name="default_stocks_microsoft">MSFT</string>
-    <string name="default_stocks_facebook">FB</string>
+    <string name="default_stocks_yahoo" translatable="false">YHOO</string>
+    <string name="default_stocks_apple" translatable="false">AAPL</string>
+    <string name="default_stocks_microsoft" translatable="false">MSFT</string>
+    <string name="default_stocks_facebook" translatable="false">FB</string>
 
+    <string name="action_change_units" translatable="false">@string/pref_display_mode_key</string>
+    <string name="action_change_graph_to_list" translatable="false">@string/pref_detail_display_mode_key</string>
 
-    <string name="action_change_units">@string/pref_display_mode_key</string>
-
-
+    <!-- Add Stock dialog; char limit: 25 -->
     <string name="dialog_title">Add Stock</string>
+
     <string name="dialog_hint">Symbol (e.g. GOOG)</string>
     <string name="dialog_cancel">Cancel</string>
     <string name="dialog_add">Add</string>
 
-    <string name="error_no_network">No network connectivity! Will load stock cursor when the network is available.</string>
+    <!-- Error messages; char limit: none -->
+    <string name="error_out_of_date_plus_sync_error">
+        <xliff:g id="outOfDateMessage">%s. </xliff:g>An error has occurred in the last sync: <xliff:g id="lastSyncError">%s</xliff:g>
+    </string>
     <string name="error_no_stocks">No stocks added! Hit the floating action button to add one.</string>
+    <string name="error_out_of_date">Your data is out of date.</string>
+    <string name="error_server_connection">It was not possible to communicate to the quote server</string>
+    <string name="error_unknown">Unknown error</string>
+    <string name="error_stock_does_not_exist">The given stock \'%s\' does not exist</string>
 
+    <!-- Error status key and related stuff -->
+    <string name="error_on_last_sync_key" translatable="false">errorOnLastSync</string>
+    <string name="error_on_last_sync_message_key" translatable="false">errorOnLastSyncMessage</string>
+    <string name="last_successful_sync_date_key">lastSuccessfulSyncDate</string>
+
+    <!-- No connectivity messages; char limit: none -->
     <string name="toast_stock_added_no_connectivity">Symbol %s added. Will refresh when network available.</string>
     <string name="toast_no_connectivity">Will refresh when network available.</string>
+    <string name="status_no_connectivity">No connectivity</string>
+
+    <!-- Message for empty stock historical list; char limit: none -->
+    <string name="empty_details_list">no detail data</string>
+
+    <!-- Activities titles; char limit: 15 -->
+    <string name="title_activity_detail"><xliff:g id="appName">Stock Hawk</xliff:g> - details</string>
+
+    <!-- Tags for fragments -->
+    <string name="fragment_main_tag" translatable="false">fragmentMain</string>
+    <string name="fragment_detail_tag" translatable="false">fragmentDetail</string>
+    <string name="fragment_graph_tag" translatable="false">fragmentGraph</string>
+
+    <!-- Detail activity view labels; char limit: 10 -->
+    <string name="detail_date_label">Date</string>
+    <string name="detail_open_label">Open</string>
+    <string name="detail_high_label">High</string>
+    <string name="detail_low_label">Low</string>
+    <string name="detail_close_label">Close</string>
+    <string name="detail_volume_label">Volume</string>
+
+    <!-- Content descriptions -->
+    <string name="content_description_add_button">Add a new stock</string>
+
+    <!-- Widget strings -->
+    <!-- Empty stocks list message; char limit: none -->
+    <string name="widget_empty_list_text">No stock information available</string>
+
+    <!-- Graph strings -->
+    <!-- Graph label / description; char limit: 50 -->
+    <string name="graph_label">Quotes over time</string>
+    <string name="graph_entries_label">Quotes</string>
 
 </resources>

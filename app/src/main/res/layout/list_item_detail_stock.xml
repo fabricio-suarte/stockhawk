@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/activity_vertical_margin"
+    android:clickable="true">
+
+    <LinearLayout
+        android:id="@+id/detailItemMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true">
+
+        <TextView android:id="@+id/textViewItemDate"
+            style="@style/DetailItemTextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_marginEnd="@dimen/activity_horizontal_margin_4x"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="end" />
+
+        <TextView android:id="@+id/textViewItemClose"
+            style="@style/DetailItemTextStyle"
+            android:layout_width="0dp"
+            android:layout_weight="2"
+            android:layout_marginStart="@dimen/activity_horizontal_margin_4x"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="start" />
+
+        <ImageView android:id="@+id/imageViewItemExpand"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0"
+            android:scaleType="center"
+            android:layout_gravity="center"
+            android:background="@drawable/ic_action_expand"
+            android:backgroundTint="@color/colorPrimaryDark" />
+
+    </LinearLayout>
+
+    <FrameLayout android:id="@+id/item_detail_data_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/detailItemMainLayout"
+        android:visibility="gone"
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:layout_marginEnd="@dimen/item_detail_data_container_end_margin">
+
+        <include layout="@layout/grid_detail_data"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </FrameLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@color/colorPrimaryLight"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/item_detail_data_container"
+        android:layout_marginTop="@dimen/activity_vertical_margin"/>
+
+</RelativeLayout>

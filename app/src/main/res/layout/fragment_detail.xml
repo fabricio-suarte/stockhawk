@@ -1,0 +1,37 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.udacity.stockhawk.ui.DetailFragment">
+
+    <TextView
+        style="@style/DetailSymbolTextStyle"
+        android:id="@+id/textViewDetailSymbol"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:text=""
+        android:layout_marginBottom="@dimen/activity_vertical_margin"/>
+    
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerViewDetails"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingStart="@dimen/activity_horizontal_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/textViewDetailSymbol" />
+
+    <!-- empty list -->
+    <TextView
+        android:id="@+id/recyclerview_details_empty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@id/textViewDetailSymbol"
+        android:gravity="center"
+        android:visibility="gone"
+        android:text="@string/empty_details_list"
+        android:textAppearance="@android:style/TextAppearance.Medium" />
+
+</RelativeLayout>

@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat">
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
@@ -12,12 +12,58 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="WidgetPercentChangeTextStyle" parent="PercentChangeTextStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
     <style name="BidPriceTextStyle">
         <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="WidgetBidPriceTextStyle">
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="StockSymbolTextStyle">
         <item name="android:textSize">25sp</item>
         <item name="android:textAllCaps">true</item>
+        <item name="android:gravity">start|center_vertical</item>
+    </style>
+
+    <style name="WidgetStockSymbolTextStyle" parent="StockSymbolTextStyle">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="PriceWrapperLayout">
+        <item name="android:gravity">end</item>
+    </style>
+
+    <!-- Detail styles -->
+
+    <style name="DetailSymbolTextStyle" parent="StockSymbolTextStyle">
+        <item name="android:background">@color/colorPrimaryLight</item>
+        <item name="android:padding">@dimen/view_default_padding</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="DetailItemTextStyle">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="DetailItemLabel" parent="DetailItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">end</item>
+        <item name="android:layout_marginEnd">@dimen/activity_horizontal_margin_4x</item>
+        <item name="android:layout_columnWeight">1</item>
+    </style>
+
+    <style name="DetailItem" parent="DetailItemTextStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">start</item>
+        <item name="android:layout_marginStart">@dimen/activity_horizontal_margin_4x</item>
+        <item name="android:layout_columnWeight">1</item>
     </style>
 </resources>

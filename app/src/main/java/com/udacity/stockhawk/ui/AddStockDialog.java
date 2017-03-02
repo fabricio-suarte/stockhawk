@@ -65,16 +65,20 @@ public class AddStockDialog extends DialogFragment {
         @Override
         protected Boolean doInBackground(String... params) {
 
+            boolean flag = false;
+
             try {
                 Stock yahooStock = YahooFinance.get(params[0]);
                 errorDuringStockCheck = false;
 
-                return yahooStock.getName() != null;
+                flag = yahooStock != null && yahooStock.getName() != null;
             }
-            catch (IOException ex) {
+            catch (Exception ex) {
                 errorDuringStockCheck = true;
-                return false;
+                flag = false;
             }
+
+            return flag;
         }
 
         @Override

@@ -2,6 +2,7 @@ package com.udacity.stockhawk.ui;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -22,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.StockHawkApp;
 import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.message.MessageDecisionTreeBuilder;
@@ -128,8 +130,13 @@ public class MainFragment extends Fragment implements LoaderManager.LoaderCallba
             public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
 
                 String symbol = adapter.getSymbolAtPosition(viewHolder.getAdapterPosition());
-                PrefUtils.removeStock(getActivity(), symbol);
+
+                getActivity().getContentResolver().delete(Contract.Symbol.makeUriForSymbol(symbol), null, null);
                 getActivity().getContentResolver().delete(Contract.Quote.makeUriForStock(symbol), null, null);
+
+                //Notify widgets of this data change
+                Intent dataUpdatedIntent = new Intent(StockHawkApp.ACTION_DATA_UPDATED);
+                getActivity().sendBroadcast(dataUpdatedIntent);
             }
 
         }).attachToRecyclerView(stockRecyclerView);

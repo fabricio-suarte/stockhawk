@@ -6,7 +6,9 @@ import android.content.ComponentName;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.database.Cursor;
 
+import com.github.mikephil.charting.renderer.scatter.ChevronUpShapeRenderer;
 import com.udacity.stockhawk.R;
 import com.udacity.stockhawk.StockHawkApp;
 import com.udacity.stockhawk.data.Contract;
@@ -51,17 +53,36 @@ public final class QuoteSyncJob {
 
         try {
 
-            Set<String> stockPref = PrefUtils.getStocks(context);
-            Set<String> stockCopy = new HashSet<>();
-            stockCopy.addAll(stockPref);
-            String[] stockArray = stockPref.toArray(new String[stockPref.size()]);
+            //Register default Stocks if not initialized...
+            if(! PrefUtils.isInitialized(context)) {
 
-            if (stockArray.length == 0) {
+                registerDefaultStocks(context);
+                PrefUtils.setAsInitialized(context);
+            }
+
+            //Get current registered stocks
+            Cursor cursor = context.getContentResolver().query(
+                    Contract.Symbol.URI,
+                    Contract.Symbol.SYMBOL_COLUMNS.toArray(new String[] {}),
+                    null,
+                    null,
+                    null);
+
+            if (cursor == null || cursor.getCount() == 0) {
                 return;
             }
 
+            Set<String> stockSymbols = new HashSet<>( cursor.getCount() );
+            while (cursor.moveToNext()) {
+                stockSymbols.add( cursor.getString(Contract.Symbol.POSITION_NAME) );
+            }
+
+            cursor.close();
+
+            String[] stockArray = stockSymbols.toArray( new String[] {});
             Map<String, Stock> quotes = YahooFinance.get(stockArray);
-            Iterator<String> iterator = stockCopy.iterator();
+
+            Iterator<String> iterator = stockSymbols.iterator();
 
             ArrayList<ContentValues> quoteCVs = new ArrayList<>();
 
@@ -165,5 +186,28 @@ public final class QuoteSyncJob {
         }
     }
 
+    //region private aux methods
+
+    private static void registerDefaultStocks(Context context) {
+
+        Set<String> stockPref = PrefUtils.getDefaultStocks(context);
+
+        Iterator<String> iterator = stockPref.iterator();
+        ArrayList<ContentValues> symbolsCVs = new ArrayList<>();
+        ContentValues cv;
+
+        while (iterator.hasNext()) {
+            cv = new ContentValues();
+            cv.put(Contract.Symbol.COLUMN_NAME, iterator.next());
+
+            symbolsCVs.add(cv);
+        }
+        context.getContentResolver()
+                .bulkInsert(Contract.Symbol.URI,
+                        symbolsCVs.toArray(new ContentValues[symbolsCVs.size()]));
+
+    }
+
+    //endregion
 
 }

@@ -5,7 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.udacity.stockhawk.data.Contract.Quote;
-
+import com.udacity.stockhawk.data.Contract.Symbol;
 
 class DbHelper extends SQLiteOpenHelper {
 
@@ -20,7 +20,7 @@ class DbHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        String builder = "CREATE TABLE " + Quote.TABLE_NAME + " ("
+        String QuoteBuilder = "CREATE TABLE " + Quote.TABLE_NAME + " ("
                 + Quote._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
                 + Quote.COLUMN_SYMBOL + " TEXT NOT NULL, "
                 + Quote.COLUMN_PRICE + " REAL NOT NULL, "
@@ -29,14 +29,21 @@ class DbHelper extends SQLiteOpenHelper {
                 + Quote.COLUMN_HISTORY + " TEXT NOT NULL, "
                 + "UNIQUE (" + Quote.COLUMN_SYMBOL + ") ON CONFLICT REPLACE);";
 
-        db.execSQL(builder);
+        db.execSQL(QuoteBuilder);
 
+        String SymbolsBuilder = "CREATE TABLE " + Symbol.TABLE_NAME + " ("
+                + Symbol._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, "
+                + Symbol.COLUMN_NAME + " TEXT NOT NULL, "
+                + "UNIQUE (" + Symbol.COLUMN_NAME + ") ON CONFLICT REPLACE);";
+
+        db.execSQL(SymbolsBuilder);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
         db.execSQL(" DROP TABLE IF EXISTS " + Quote.TABLE_NAME);
+        db.execSQL(" DROP TABLE IF EXISTS " + Symbol.TABLE_NAME);
 
         onCreate(db);
     }

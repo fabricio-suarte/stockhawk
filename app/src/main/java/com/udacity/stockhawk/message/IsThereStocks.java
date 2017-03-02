@@ -1,7 +1,9 @@
 package com.udacity.stockhawk.message;
 
 import android.content.Context;
+import android.database.Cursor;
 
+import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 
 /**
@@ -25,6 +27,19 @@ class IsThereStocks  extends MessageNode{
 
     @Override
     public boolean isConditionTrue() {
-        return PrefUtils.getStocks(this.context).size() > 0;
+
+        Cursor cursor = this.context
+                .getContentResolver().query(Contract.Symbol.URI,
+                        Contract.Symbol.SYMBOL_COLUMNS.toArray(new String[] {}),
+                        null,
+                        null,
+                        null);
+
+        if(cursor == null)
+            return false;
+
+        cursor.close();
+
+        return cursor.getCount() > 0;
     }
 }

@@ -10,7 +10,10 @@ public final class Contract {
 
     static final String AUTHORITY = "com.udacity.stockhawk";
     static final String PATH_QUOTE = "quote";
+    static final String PATH_SYMBOL = "symbol";
     static final String PATH_QUOTE_WITH_SYMBOL = "quote/*";
+    static final String PATH_SYMBOL_WITH_NAME= "symbol/*";
+
     private static final Uri BASE_URI = Uri.parse("content://" + AUTHORITY);
 
     private Contract() {
@@ -41,11 +44,33 @@ public final class Contract {
         );
         static final String TABLE_NAME = "quotes";
 
-        public static Uri makeUriForStock(String symbol) {
-            return URI.buildUpon().appendPath(symbol).build();
+        public static Uri makeUriForStock(String stock) {
+            return URI.buildUpon().appendPath(stock).build();
         }
 
         static String getStockFromUri(Uri queryUri) {
+            return queryUri.getLastPathSegment();
+        }
+    }
+
+    @SuppressWarnings("unused")
+    public static final class Symbol implements BaseColumns {
+
+        public static final Uri URI = BASE_URI.buildUpon().appendPath(PATH_SYMBOL).build();
+        public static final String COLUMN_NAME = "name";
+        public static final int POSITION_ID = 0;
+        public static final int POSITION_NAME = 1;
+        public static final ImmutableList<String> SYMBOL_COLUMNS = ImmutableList.of(
+                _ID,
+                COLUMN_NAME
+        );
+        static final String TABLE_NAME = "symbols";
+
+        public static Uri makeUriForSymbol(String symbol) {
+            return URI.buildUpon().appendPath(symbol).build();
+        }
+
+        static String getSymbolFromUri(Uri queryUri) {
             return queryUri.getLastPathSegment();
         }
 

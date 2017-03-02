@@ -16,14 +16,24 @@ public class StockProvider extends ContentProvider {
     private static final int QUOTE = 100;
     private static final int QUOTE_FOR_SYMBOL = 101;
 
+    private static final int SYMBOL = 102;
+    private static final int SYMBOL_FOR_NAME = 103;
+
     private static final UriMatcher uriMatcher = buildUriMatcher();
 
     private DbHelper dbHelper;
 
     private static UriMatcher buildUriMatcher() {
         UriMatcher matcher = new UriMatcher(UriMatcher.NO_MATCH);
+
+        //Quotes matches
         matcher.addURI(Contract.AUTHORITY, Contract.PATH_QUOTE, QUOTE);
         matcher.addURI(Contract.AUTHORITY, Contract.PATH_QUOTE_WITH_SYMBOL, QUOTE_FOR_SYMBOL);
+
+        //Symbol matches
+        matcher.addURI(Contract.AUTHORITY, Contract.PATH_SYMBOL, SYMBOL);
+        matcher.addURI(Contract.AUTHORITY, Contract.PATH_SYMBOL_WITH_NAME, SYMBOL_FOR_NAME);
+
         return matcher;
     }
 
@@ -64,6 +74,29 @@ public class StockProvider extends ContentProvider {
                         sortOrder
                 );
 
+            case SYMBOL:
+                returnCursor = db.query(
+                        Contract.Symbol.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder
+                );
+                break;
+
+            case SYMBOL_FOR_NAME:
+                returnCursor = db.query(
+                        Contract.Symbol.TABLE_NAME,
+                        projection,
+                        Contract.Symbol.COLUMN_NAME + " = ?",
+                        new String[]{Contract.Quote.getStockFromUri(uri)},
+                        null,
+                        null,
+                        sortOrder
+                );
+
                 break;
             default:
                 throw new UnsupportedOperationException("Unknown URI:" + uri);
@@ -98,6 +131,16 @@ public class StockProvider extends ContentProvider {
                 );
                 returnUri = Contract.Quote.URI;
                 break;
+
+            case SYMBOL:
+                db.insert(
+                        Contract.Symbol.TABLE_NAME,
+                        null,
+                        values
+                );
+                returnUri = Contract.Symbol.URI;
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI:" + uri);
         }
@@ -136,6 +179,25 @@ public class StockProvider extends ContentProvider {
                         selectionArgs
                 );
                 break;
+
+            case SYMBOL:
+                rowsDeleted = db.delete(
+                        Contract.Symbol.TABLE_NAME,
+                        selection,
+                        selectionArgs
+                );
+
+                break;
+
+            case SYMBOL_FOR_NAME:
+                String name = Contract.Symbol.getSymbolFromUri(uri);
+                rowsDeleted = db.delete(
+                        Contract.Symbol.TABLE_NAME,
+                        '"' + name + '"' + " =" + Contract.Symbol.COLUMN_NAME,
+                        selectionArgs
+                );
+                break;
+
             default:
                 throw new UnsupportedOperationException("Unknown URI:" + uri);
         }
@@ -160,10 +222,13 @@ public class StockProvider extends ContentProvider {
 
         final SQLiteDatabase db = dbHelper.getWritableDatabase();
 
+        int returnCount = 0;
+        Context context = getContext();
+
         switch (uriMatcher.match(uri)) {
             case QUOTE:
                 db.beginTransaction();
-                int returnCount = 0;
+
                 try {
                     for (ContentValues value : values) {
                         db.insert(
@@ -177,16 +242,36 @@ public class StockProvider extends ContentProvider {
                     db.endTransaction();
                 }
 
-                Context context = getContext();
                 if (context != null) {
                     context.getContentResolver().notifyChange(uri, null);
                 }
 
                 return returnCount;
+
+            case SYMBOL:
+                db.beginTransaction();
+
+                try {
+                    for (ContentValues value : values) {
+                        db.insert(
+                                Contract.Symbol.TABLE_NAME,
+                                null,
+                                value
+                        );
+                    }
+                    db.setTransactionSuccessful();
+                } finally {
+                    db.endTransaction();
+                }
+
+                if (context != null) {
+                    context.getContentResolver().notifyChange(uri, null);
+                }
+
+                return returnCount;
+
             default:
                 return super.bulkInsert(uri, values);
         }
-
-
     }
 }

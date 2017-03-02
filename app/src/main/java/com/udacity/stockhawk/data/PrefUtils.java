@@ -19,48 +19,31 @@ public final class PrefUtils {
     private PrefUtils() {
     }
 
-    public static Set<String> getStocks(Context context) {
-        String stocksKey = context.getString(R.string.pref_stocks_key);
-        String initializedKey = context.getString(R.string.pref_stocks_initialized_key);
+    public static Set<String> getDefaultStocks(Context context) {
+
         String[] defaultStocksList = context.getResources().getStringArray(R.array.default_stocks);
-
         HashSet<String> defaultStocks = new HashSet<>(Arrays.asList(defaultStocksList));
-        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
 
-        boolean initialized = prefs.getBoolean(initializedKey, false);
-
-        if (!initialized) {
-            SharedPreferences.Editor editor = prefs.edit();
-            editor.putBoolean(initializedKey, true);
-            editor.putStringSet(stocksKey, defaultStocks);
-            editor.apply();
-            return defaultStocks;
-        }
-        return prefs.getStringSet(stocksKey, new HashSet<String>());
+        return defaultStocks;
     }
 
-    private static void editStockPref(Context context, String symbol, Boolean add) {
-        String key = context.getString(R.string.pref_stocks_key);
-        Set<String> stocks = getStocks(context);
-
-        if (add) {
-            stocks.add(symbol);
-        } else {
-            stocks.remove(symbol);
-        }
-
+    public static void setAsInitialized(Context context) {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String initializedKey = context.getString(R.string.pref_stocks_initialized_key);
+
         SharedPreferences.Editor editor = prefs.edit();
-        editor.putStringSet(key, stocks);
-        editor.apply();
+        editor.putBoolean(initializedKey, true);
+
+        //It's ok commit. It has been called from a background thread.
+        editor.commit();
     }
 
-    public static void addStock(Context context, String symbol) {
-        editStockPref(context, symbol, true);
-    }
+    public static boolean isInitialized(Context context) {
 
-    public static void removeStock(Context context, String symbol) {
-        editStockPref(context, symbol, false);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
+        String initializedKey = context.getString(R.string.pref_stocks_initialized_key);
+
+        return prefs.getBoolean(initializedKey, false);
     }
 
     public static String getDisplayMode(Context context) {

@@ -1,5 +1,6 @@
 package com.udacity.stockhawk.ui;
 
+import android.content.ContentValues;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.udacity.stockhawk.R;
+import com.udacity.stockhawk.data.Contract;
 import com.udacity.stockhawk.data.PrefUtils;
 import com.udacity.stockhawk.sync.QuoteSyncJob;
 import com.udacity.stockhawk.util.Utility;
@@ -113,6 +115,10 @@ public class MainActivity extends AppCompatActivity
 
         if (isValid) {
 
+            ContentValues cv = new ContentValues();
+            cv.put(Contract.Symbol.COLUMN_NAME, symbol);
+            this.getContentResolver().insert(Contract.Symbol.URI, cv);
+
             if (Utility.networkUp(this)) {
 
                 MainFragment fragment = this.getMainFragment();
@@ -124,7 +130,6 @@ public class MainActivity extends AppCompatActivity
                 Toast.makeText(this, message, Toast.LENGTH_LONG).show();
             }
 
-            PrefUtils.addStock(this, symbol);
             QuoteSyncJob.syncImmediately(this);
         }
         else if(errorDuringValidation) {
